@@ -17,6 +17,4 @@ jobs:
         uses: mujo-code/puppeteer-headful@16.6.0
         env:
           CI: "true"
-        with:
-          args: npm test
       - run: node example.js
