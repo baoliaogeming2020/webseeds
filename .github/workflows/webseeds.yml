@@ -46,7 +46,7 @@ jobs:
         run: |
           sudo add-apt-repository ppa:fbdtemme/torrenttools
           sudo apt-get update
-          sudo apt-get install torrenttools
+          sudo apt install torrenttools
           
       - name: Download file
         run: aria2c -x 16 -o "${{ github.event.inputs.file_name }}" "${{ github.event.inputs.url }}"
