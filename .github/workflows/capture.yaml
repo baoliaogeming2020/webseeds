@@ -7,14 +7,42 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Install Dependencies
-        uses: actions/setup-node@v2
-        env:
-          PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
+      - name: Setup Node
+        uses: actions/setup-node@v1
         with:
-          args: install
-      - name: Test Code
-        uses: mujo-code/puppeteer-headful@16.6.0
+          node-version: 14
+
+      - name: 'Fix for: error fsevents@2.1.2: The platform "linux" is incompatible with this module.'
+        run: npx json -I -f package.json -e 'this.resolutions={}'
+
+      - name: yarn install
+        uses: bahmutov/npm-install@v1
+
+      - name: yarn bootstrap
+        run: yarn bootstrap
+
+      - name: install puppeteer@14.2.0 
+        run: yarn lerna add --dev puppeteer@14.2.0 
+
+      - name: lerna link
+        run: yarn lerna link
+
+      - name: lerna build
+        run: yarn lerna run build --concurrency 1
+
+      - name: debug
+        run: |
+          yarn list --pattern "puppeteer|puppeteer-extra|playwright"
+          file node_modules/puppeteer-extra/dist/index.cjs.js
+      - uses: microsoft/playwright-github-action@v1
+
+      - name: playwright install
+        run: cd packages/playwright-extra && yarn playwright install
+
+      - name: test
+        uses: GabrielBB/xvfb-action@v1
         env:
-          CI: "true"
+          DISPLAY: ':99.0'
+        with:
+          run: yarn test-ci
       - run: node example.js
