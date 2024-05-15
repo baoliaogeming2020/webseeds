@@ -4,8 +4,7 @@ const puppeteer = require('puppeteer');
   const browser = await puppeteer.launch({
     args: ['--no-sandbox'],
     executablePath: process.env.PUPPETEER_EXEC_PATH,
-    headless: false,
-    ...
+    headless: false
 });
   const page = await browser.newPage();
   await page.goto('https://example.com');
