@@ -6,9 +6,17 @@ jobs:
   capture_screen:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v3
+      - name: Install Dependencies
+        uses: actions/setup-node@v2
+        env:
+          PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: "true"
         with:
-          node-version: '20.0.0-v8-canary' # it will install the latest v8 canary release for node 20.0.0
-      - run: npm i puppeteer
+          args: install
+      - name: Test Code
+        uses: mujo-code/puppeteer-headful@16.6.0
+        env:
+          CI: "true"
+        with:
+          args: npm test
       - run: node example.js
