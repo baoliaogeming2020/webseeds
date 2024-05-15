@@ -14,7 +14,7 @@ jobs:
           PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: 'true'
         with:
           args: install
-     - name: Smoke tests
+      - name: Smoke tests
         uses: beemi/puppeteer-headful@master
         env:
           CI: 'true'
