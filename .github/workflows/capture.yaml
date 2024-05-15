@@ -6,43 +6,21 @@ jobs:
   capture_screen:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Setup Node
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Build project
         uses: actions/setup-node@v1
-        with:
-          node-version: 14
-
-      - name: 'Fix for: error fsevents@2.1.2: The platform "linux" is incompatible with this module.'
-        run: npx json -I -f package.json -e 'this.resolutions={}'
-
-      - name: yarn install
-        uses: bahmutov/npm-install@v1
-
-      - name: yarn bootstrap
-        run: yarn bootstrap
-
-      - name: install puppeteer@14.2.0 
-        run: yarn lerna add --dev puppeteer@14.2.0 
-
-      - name: lerna link
-        run: yarn lerna link
-
-      - name: lerna build
-        run: yarn lerna run build --concurrency 1
-
-      - name: debug
-        run: |
-          yarn list --pattern "puppeteer|puppeteer-extra|playwright"
-          file node_modules/puppeteer-extra/dist/index.cjs.js
-      - uses: microsoft/playwright-github-action@v1
-
-      - name: playwright install
-        run: cd packages/playwright-extra && yarn playwright install
-
-      - name: test
-        uses: GabrielBB/xvfb-action@v1
         env:
-          DISPLAY: ':99.0'
+          PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: 'true'
         with:
-          run: yarn test-ci
+          args: install
+     - name: Smoke tests
+        uses: beemi/puppeteer-headful@master
+        env:
+          CI: 'true'
+          DISPLAY: :99
+        with:
+          args: npm test   
       - run: node example.js
