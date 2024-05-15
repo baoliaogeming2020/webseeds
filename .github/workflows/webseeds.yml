@@ -32,7 +32,7 @@ on:
         
 jobs:
   create_torrent:
-    runs-on: ubuntu-21.04
+    runs-on: ubuntu-20.04
     steps:
       - name: Maximize disk space
         if: github.event.inputs.maximize_disk_space == 'true'
