@@ -19,14 +19,14 @@ options = [
 for option in options:
     chrome_options.add_argument(option)
 
-f = open("link.txt")               # 返回一个文件对象 
-line = f.readline()               # 调用文件的 readline()方法 
-while line: 
-    #print line,                   # 后面跟 ',' 将忽略换行符 
-    print(line)　      # 在 Python 3 中使用 
-    line = f.readline() 
- 
-f.close()  
+f = open("link.txt")
+line = f.readline()
+
+while line:
+    print(line)
+    line = f.readline()
+
+f.close()
 
 driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
