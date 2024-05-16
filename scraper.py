@@ -30,10 +30,11 @@ while line:
     #driver.implicitly_wait(10)
     driver.get(line)
     sleep(5)
+    print(driver.title)
     line = f.readline()
 
 f.close()
 
 # driver.get('https://www.tmp.link/?tmpui_page=/app&listview=login')
 # driver.get_screenshot_as_file('foo.png')
-print(driver.title)
+
