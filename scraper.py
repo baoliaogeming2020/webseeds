@@ -27,9 +27,9 @@ line = f.readline()
 
 while line:
     print(line)
-    driver.implicitly_wait(10)
+    #driver.implicitly_wait(10)
     driver.get(line)
-    #sleep(5)
+    sleep(5)
     line = f.readline()
 
 f.close()
