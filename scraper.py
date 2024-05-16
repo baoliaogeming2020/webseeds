@@ -19,8 +19,12 @@ options = [
 for option in options:
     chrome_options.add_argument(option)
 
+for line in open("link.txt", "r")
+		print(line)
+fo.close()
+
 driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
 driver.get('https://www.tmp.link/?tmpui_page=/app&listview=login')
-driver.get_screenshot_as_file('foo.png')
+# driver.get_screenshot_as_file('foo.png')
 print(driver.title)
