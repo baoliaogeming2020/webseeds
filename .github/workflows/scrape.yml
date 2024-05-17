@@ -1,5 +1,6 @@
 name: scrape
 on:
+  workflow_dispatch:
   schedule:
     - cron: '0 22 * * 1,4'
 jobs:
@@ -24,13 +25,16 @@ jobs:
         run: pip install requests beautifulsoup4 pandas webdriver-manager selenium
       - name: Run the scraping script
         run: python scraper.py
+
       - name: Commit files
+        if: ${{ github.event_name == 'workflow_dispatch' }}
         run: |
           git config --global user.email "baoliaogeming2020@protonmail.com"
           git config --global user.name "baoliaogeming2020"
           git add .
           git commit -m "Create new file"
       - name: Push changes
+        if: ${{ github.event_name == 'workflow_dispatch' }}
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
