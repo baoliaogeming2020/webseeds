@@ -10,8 +10,8 @@ jobs:
         uses: actions/checkout@v4
       - name: set up yt-dl
         uses: AnimMouse/setup-yt-dlp@v1
-          with:
-            with-ffmpeg: true
+        with:
+          with-ffmpeg: true
       
       - run: | 
           yt-dlp --print-to-file "%(upload_date>%Y-%m-%d)s-[%(id)s]-%(title)s.%(ext)s" test.txt --no-windows-filenames -o "%(upload_date>%Y-%m-%d)s-[%(id)s]-%(title)s.%(ext)s" https://youtu.be/Rp-OehAOXu8
