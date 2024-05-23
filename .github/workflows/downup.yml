@@ -1,0 +1,21 @@
+name: down and up load
+on:
+  workflow_dispatch:
+
+jobs:
+  download_and_upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out this repo
+        uses: actions/checkout@v4
+      - name: set up yt-dl
+        uses: AnimMouse/setup-yt-dlp@v1
+          with:
+            with-ffmpeg: true
+      
+      - run: | 
+          yt-dlp --print-to-file "%(upload_date>%Y-%m-%d)s-[%(id)s]-%(title)s.%(ext)s" test.txt --no-windows-filenames -o "%(upload_date>%Y-%m-%d)s-[%(id)s]-%(title)s.%(ext)s" https://youtu.be/Rp-OehAOXu8
+          cat test.txt
+          ls
+
+      
