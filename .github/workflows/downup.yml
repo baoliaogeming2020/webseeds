@@ -14,7 +14,7 @@ jobs:
           with-ffmpeg: true
       
       - run: | 
-          yt-dlp --print-to-file "%(upload_date>%Y-%m-%d)s-[%(id)s]-%(title)s.%(ext)s" test.txt --no-windows-filenames -o "%(upload_date>%Y-%m-%d)s-[%(id)s]-%(title)s.%(ext)s" https://youtu.be/Rp-OehAOXu8
+          yt-dlp --print-to-file "%(upload_date>%Y-%m-%d)s-[%(id)s].%(ext)s" test.txt --no-windows-filenames -o "%(upload_date>%Y-%m-%d)s-[%(id)s].%(ext)s" https://youtu.be/Rp-OehAOXu8
           cat test.txt
           ls
 
