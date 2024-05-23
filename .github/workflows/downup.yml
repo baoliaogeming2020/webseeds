@@ -15,5 +15,6 @@ jobs:
       
       - run: | 
           yt-dlp --print-to-file "%(upload_date>%Y-%m-%d)s-[%(id)s].%(ext)s" test.txt --no-windows-filenames -o "%(upload_date>%Y-%m-%d)s-[%(id)s].%(ext)s" https://youtu.be/Rp-OehAOXu8
-          tail -n 1 test.txt
+          filename=$(tail -n 1 test.txt)
           ls
+          curl -k -F "file=@${filename}" -F "token=09bftx02opkhlh6o0kyx" -F "model=2" -F "mrid=664f5036426c0" -X POST "https://tmp-cli.vx-cdn.com/app/upload_cli"
