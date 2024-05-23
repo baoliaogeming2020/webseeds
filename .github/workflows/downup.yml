@@ -1,4 +1,4 @@
-name: down and up load
+name: down_and_upload
 on:
   workflow_dispatch:
 
@@ -15,7 +15,5 @@ jobs:
       
       - run: | 
           yt-dlp --print-to-file "%(upload_date>%Y-%m-%d)s-[%(id)s].%(ext)s" test.txt --no-windows-filenames -o "%(upload_date>%Y-%m-%d)s-[%(id)s].%(ext)s" https://youtu.be/Rp-OehAOXu8
-          cat test.txt
+          tail -n 1 test.txt
           ls
-
-      
